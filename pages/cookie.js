@@ -6,7 +6,7 @@ import { OrbitControls, Html } from "@react-three/drei";
 
 import { useSpring, animated } from "@react-spring/three";
 
-import useLongPress from "./hooks/use-long-press";
+import useLongPress from "../hooks/use-long-press";
 
 const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
  

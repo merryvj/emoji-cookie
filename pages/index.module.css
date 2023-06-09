@@ -1,0 +1,57 @@
+.main {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+.wrapper{
+  background-color: #d2d2d2;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.pushable{
+  background: hsl(30, 92%, 25%);
+  border-radius: 16px;
+  border: none;
+  padding: 0;
+  outline-offset: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.front{
+  display: block;
+  padding: 12px 32px;
+  border-radius: inherit;
+  font-size: 1.25rem;
+  background: hsl(30, 53%, 51%);
+  border: solid 4px hsl(30, 92%, 25%);
+  transform: translateY(-6px);
+  transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.pushable:hover .front {
+  transform: translateY(-8px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.pushable:disabled .front{
+  transform: translateY(-2px);
+}

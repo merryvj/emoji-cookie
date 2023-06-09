@@ -11,92 +11,55 @@ export default function Home() {
 
   useEffect(() => {
     fetchFortune();
-  }, [])
+  }, []);
 
   async function fetchFortune() {
     const response = await fetch(`http://localhost:5050/fortune/`);
- 
-     if (!response.ok) {
-       const message = `An error occurred: ${response.statusText}`;
-       window.alert(message);
-       return;
-     }
- 
-     const fortunes = await response.json();
-     const fortune = fortunes[Math.floor(Math.random()*fortunes.length)];
-     setResult(fortune.emoji);
-     console.log(fortune);
-  };
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const fortunes = await response.json();
+    const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    setResult(fortune.emoji);
+    console.log(fortune);
+  }
 
   const onSubmit = () => {
-    setIsGenerated(!isGenerated)
-  }
-  
+    setIsGenerated(!isGenerated);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.wrapper}>
-      {/* <button className={styles.pushable} onClick={onSubmit} disabled={isButtonDisabled}>
-        <span className={styles.front}>
-        {isGenerated ? "Another!" : "Gimme fortune!"}
-        </span>
-      </button> */}
-      <Scene isGenerated={isGenerated} fortuneText={result} handleClick={onSubmit}></Scene>
+    <div
+    >
+       <style global jsx>{`
+          html,
+          body{
+            height: 100%;
+            padding: 0;
+            margin: 0;
+          }
+        `}</style>
+
+      <Head>
+        <title> ^_^ </title>
+        <meta charset="utf-16"></meta>
+       
+      </Head>
+
+      <main className={styles.main}>
+        <div className={styles.wrapper}>
+          <title>My page title</title>
+          <Scene
+            isGenerated={isGenerated}
+            fortuneText={result}
+            handleClick={onSubmit}
+          ></Scene>
+        </div>
+      </main>
     </div>
-    </main>
   );
 }
-
-// export default function Home() {
-//   const [animalInput, setAnimalInput] = useState("");
-//   const [result, setResult] = useState();
-
-//   async function onSubmit(event) {
-//     event.preventDefault();
-//     try {
-//       const response = await fetch("/api/generate", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ animal: animalInput }),
-//       });
-
-//       const data = await response.json();
-//       if (response.status !== 200) {
-//         throw data.error || new Error(`Request failed with status ${response.status}`);
-//       }
-
-//       setResult(data.result);
-//       setAnimalInput("");
-//     } catch(error) {
-//       // Consider implementing your own error handling logic here
-//       console.error(error);
-//       alert(error.message);
-//     }
-//   }
-
-//   return (
-//     <div>
-//       <Head>
-//         <title>OpenAI Quickstart</title>
-//         <link rel="icon" href="/dog.png" />
-//       </Head>
-
-//       <main className={styles.main}>
-//         <img src="/dog.png" className={styles.icon} />
-//         <h3>Name my pet</h3>
-//         <form onSubmit={onSubmit}>
-//           <input
-//             type="text"
-//             name="animal"
-//             placeholder="Enter an animal"
-//             value={animalInput}
-//             onChange={(e) => setAnimalInput(e.target.value)}
-//           />
-//           <input type="submit" value="Generate names" />
-//         </form>
-//         <div className={styles.result}>{result}</div>
-//       </main>
-//     </div>
-//   );
-// }

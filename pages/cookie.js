@@ -104,6 +104,7 @@ const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
                 display: "flex",
                 justifyContent: "center",
                 userSelect: "none",
+                color: "#000"
               }}
             >
               <p style={{ width: "100%", textAlign: "center" }}>{fortuneText}</p>

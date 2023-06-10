@@ -21,7 +21,7 @@ const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
   const springRight = useSpring({ position: [0, 0, isGenerated ? -1.5 : -progress * 2] });
   const fortuneSpring = useSpring({
     scale: isGenerated ? 0.5 : progress / 2,
-    position: [-0.95, isGenerated ? 1.75 : 1, 0],
+    position: [-0.95, isGenerated ? 1.75 : .8, 0],
     rotation: [0, 0, isGenerated ? - Math.PI / 6 : 0]});
 
 
@@ -66,13 +66,19 @@ const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-    //ref.current.rotation.y = t;
-    ref.current.rotation.set(
-      Math.cos(t / 4) / 8,
-      Math.sin(t / 3) / 4,
-      0.15 + Math.sin(t / 2) / 8
-    );
-    ref.current.position.y = (0.5 + Math.cos(t / 2)) / 8;
+    // //ref.current.rotation.y = t;
+    // ref.current.rotation.set(
+    //   Math.cos(t / 4) / 8,
+    //   Math.sin(t / 3) / 4,
+    //   0.15 + Math.sin(t / 2) / 8
+    // );
+    // ref.current.position.y = (0.5 + Math.cos(t / 2)) / 8;
+
+    if (!isGenerated) {
+      ref.current.rotation.y = -Math.PI / 2 + Math.sin(t / 3) / 2;
+    }
+    ref.current.position.y = Math.cos(t/4) / 8;
+    ref.current.rotation.z = Math.PI / 1.5 + Math.sin(t/2) / 8;
   });
 
 
@@ -86,6 +92,7 @@ const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
         {...handlers}
+        rotation={[Math.PI, -Math.PI / 2, Math.PI / 1.5]}
       >
         <animated.mesh
           name="Fortune"
@@ -166,7 +173,7 @@ const Scene = ({ isGenerated, fortuneText, handleClick }) => {
     <div id="canvas-container" style={{ height: "100%", width: "100%" }}>
       <Canvas>
         <ambientLight intensity={0.1} />
-        <directionalLight color="red" position={[0, 0, 5]} />
+        <directionalLight color="brown" position={[0, 0, 5]} />
         <Cookie
           isGenerated={isGenerated}
           fortuneText={fortuneText}

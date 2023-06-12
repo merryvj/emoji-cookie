@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
 import Scene from "./cookie";
 import getBG from "../utils/getBG";
-
+import sound from "/public/sounds/crack.wav";
 
 export default function Home() {
   const [fortunes, setFortunes] = useState();
@@ -11,8 +11,10 @@ export default function Home() {
   const [isGenerated, setIsGenerated] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [background, setBackground] = useState();
+  const audioRef = useRef();
 
   useEffect(() => {
+    setResult("^_^")
     fetchFortune();
   }, []);
 
@@ -39,11 +41,14 @@ export default function Home() {
       });
     });
 
-    setBackground(getBG(fortune.type));
+    setBackground(getBG(fortune.type))
   }
 
   const onSubmit = () => {
     setIsGenerated(!isGenerated);
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
   };
 
   return (
@@ -62,27 +67,27 @@ export default function Home() {
         <meta charSet="utf-16"></meta>
       </Head>
 
-      <main
-          className={styles.main}
-          
+      <main className={styles.main}>
+        <audio ref={audioRef} src="sounds/crack.wav">
+          {" "}
+        </audio>
+        <div
+          className={styles.wrapper}
+          style={{
+            background: isGenerated ? background : "#E5DDCF",
+            transition: "all .5s ease",
+            WebkitTransition: "all .5s ease",
+            MozTransition: "all .5s ease",
+          }}
         >
-          <div
-            className={styles.wrapper}
-            style={{
-              background: isGenerated ? background : "#E5DDCF",
-              transition: "all .5s ease",
-              WebkitTransition: "all .5s ease",
-              MozTransition: "all .5s ease"
-            }}
-          >
-            <title>My page title</title>
-            <Scene
-              isGenerated={isGenerated}
-              fortuneText={result}
-              handleClick={onSubmit}
-            ></Scene>
-          </div>
-        </main>
+          <title>My page title</title>
+          <Scene
+            isGenerated={isGenerated}
+            fortuneText={result}
+            handleClick={onSubmit}
+          ></Scene>
+        </div>
+      </main>
     </div>
   );
 }

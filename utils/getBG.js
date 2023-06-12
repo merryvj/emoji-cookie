@@ -112,8 +112,9 @@
         colors.push(colorMap.get(emotion));
     })
 
-    if(colors.length === 1) return colors[0];
-    else {
-        return `radial-gradient(${colors[0]}, ${colors[1]})`
-    }
+    return colors[0];
+    // if(colors.length === 1) return colors[0];
+    // else {
+    //     return `radial-gradient(${colors[0]}, ${colors[1]})`
+    // }
   }

@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
 import Scene from "./cookie";
 import getBG from "../utils/getBG";
-import sound from "/public/sounds/crack.wav";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [fortunes, setFortunes] = useState();
   const [result, setResult] = useState();
   const [isGenerated, setIsGenerated] = useState(false);
@@ -14,8 +14,8 @@ export default function Home() {
   const audioRef = useRef();
 
   useEffect(() => {
-    setResult("^_^")
     fetchFortune();
+    setLoading(true);
   }, []);
 
   async function fetchFortune() {
@@ -28,6 +28,7 @@ export default function Home() {
     }
 
     const fortunes = await response.json();
+    setFortunes[fortunes];
     const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     setResult(fortune.emoji);
     console.log(fortune);
@@ -42,6 +43,7 @@ export default function Home() {
     });
 
     setBackground(getBG(fortune.type))
+
   }
 
   const onSubmit = () => {
@@ -80,12 +82,15 @@ export default function Home() {
             MozTransition: "all .5s ease",
           }}
         >
-          <title>My page title</title>
-          <Scene
+          {loading ? (
+            <Scene
             isGenerated={isGenerated}
             fortuneText={result}
             handleClick={onSubmit}
           ></Scene>
+          ) : <></>
+            //add loading indicator here
+        }
         </div>
       </main>
     </div>

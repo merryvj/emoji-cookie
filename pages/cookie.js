@@ -104,7 +104,7 @@ const Cookie = ({ isGenerated, fortuneText, handleClick }) => {
           scale={fortuneSpring.scale}
           rotation={fortuneSpring.rotation}
         >
-          <Html as="div" transform rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
+          <Html occlude as="div" transform rotation={[-Math.PI / 2, 0, Math.PI / 2]} position={[0, 0.1, 0]}>
             <div
               style={{
                 width: "100%",

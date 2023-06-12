@@ -19,8 +19,8 @@ export default function Home() {
   }, []);
 
   async function fetchFortune() {
-    const response = await fetch(`https://kaomoji-server.onrender.com/fortune/`);
-
+    const response = await fetch(`https://kaomoji-server.onrender.com/fortune`);
+    
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;
       window.alert(message);
@@ -43,6 +43,7 @@ export default function Home() {
     });
 
     setBackground(getBG(fortune.type))
+    //setResult("^^^^")
 
   }
 
@@ -71,7 +72,6 @@ export default function Home() {
 
       <main className={styles.main}>
         <audio ref={audioRef} src="sounds/crack.wav">
-          {" "}
         </audio>
         <div
           className={styles.wrapper}

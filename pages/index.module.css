@@ -55,3 +55,34 @@
 .pushable:disabled .front{
   transform: translateY(-2px);
 }
+
+.loader{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-animation: fadeInOut 1s infinite;
+  -moz-animation: fadeInOut 1s infinite;
+  -o-animation: fadeInOut 1s infinite;
+  animation: fadeInOut 1s infinite;
+
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  
+  10%{
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

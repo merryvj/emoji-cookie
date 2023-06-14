@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
 import Scene from "./cookie";
 import getBG from "../utils/getBG";
+import Loader from "../utils/loader";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -15,19 +16,24 @@ export default function Home() {
 
   useEffect(() => {
     fetchFortune();
-    setLoading(true);
   }, []);
 
   async function fetchFortune() {
     const response = await fetch(`https://kaomoji-server.onrender.com/fortune`);
     
+    //const response = await fetch(`http://localhost:5051/fortune`);
+
+    console.log(response);
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;
       window.alert(message);
       return;
     }
 
+
+
     const fortunes = await response.json();
+ 
     setFortunes[fortunes];
     const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     setResult(fortune.emoji);
@@ -42,8 +48,9 @@ export default function Home() {
       });
     });
 
+    setLoading(true);
     setBackground(getBG(fortune.type))
-    //setResult("^^^^")
+
 
   }
 
@@ -88,7 +95,7 @@ export default function Home() {
             fortuneText={result}
             handleClick={onSubmit}
           ></Scene>
-          ) : <></>
+          ) : <div className={styles.loader}><Loader/></div>
             //add loading indicator here
         }
         </div>

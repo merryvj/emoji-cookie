@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5050;
 
 const corsOptions = {
   origin: 'https://cookie-front.onrender.com'
+  //origin:"http://localhost:3000"
 }
 
 app.use(cors(corsOptions));
